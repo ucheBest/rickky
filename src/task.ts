@@ -1,5 +1,6 @@
 import { autoinject, bindable } from 'aurelia-framework';
 import {ValidationController, ValidationControllerFactory, ValidationMessages} from 'aurelia-validation';
+import {BootstrapFormRenderer} from './bootstrap-form-renderer';
 
 
 @autoinject
@@ -17,6 +18,8 @@ export class Task {
 
   constructor (controllerFactory: ValidationControllerFactory) {
     this.controller = controllerFactory.createForCurrentScope();
+    this.controller.addRenderer(new BootstrapFormRenderer());
+
   }
 
   
@@ -29,6 +32,6 @@ export class Task {
   }
 
   public bind() {
-    console.log(this.controller.errors)
+    
   }
 }
