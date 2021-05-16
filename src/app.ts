@@ -1,16 +1,12 @@
 import {PLATFORM} from 'aurelia-pal';
-import {Router, RouterConfiguration, RouteConfig, NavigationInstruction} from 'aurelia-router';
+import {AppRouter, RouterConfiguration} from 'aurelia-router';
 
 export class App {
-  public router: Router;
+  public router: AppRouter;
 
-  public configureRouter(config: RouterConfiguration, router: Router): Promise<void> | PromiseLike<void> | void {
+  public configureRouter(config: RouterConfiguration, router: AppRouter): Promise<void> | PromiseLike<void> | void {
     config.title = 'Aurelia';
-
-    const handleUnknownRoutes = (instruction: NavigationInstruction): RouteConfig => {
-      return { route: 'users', moduleId: 'users' };
-    }
-
+    
     config.map([
       {
         route: ['', 'welcome'],
@@ -38,10 +34,8 @@ export class App {
         moduleId: PLATFORM.moduleName('./task'),
         nav: true,
         title: 'Hahn-Task'
-      },
+      }
     ]);
-
-    config.mapUnknownRoutes(handleUnknownRoutes);
 
     this.router = router;
   }

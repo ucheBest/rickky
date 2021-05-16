@@ -1,4 +1,5 @@
 <template>
+  <require from="resources/elements/asset-detail"></require>
   <section class="container">
     <div class="card">
       <div class="card-header">
@@ -6,22 +7,14 @@
       </div>
 
       <div class="card-body">      
-        <form role="form" action="" method="post">
-          <div class="form-group">
-            <label for="asset">Asset Name</label>
-            <input type="text" class="form-control" id="asset" placeholder="Enter Asset Name">
-          </div>
-          
-          <div class="form-group">
-            <label for="department">Department</label>
-            <select id="inputState" class="form-control">
-              <option selected>Choose...</option>
-              <option>...</option>
-            </select>
+        <form role="form" action="" method="post" submit.delegate="submit()">
+          <asset-detail asset.bind="asset"></asset-detail>
+          <div class="text-center mb-2">
+            <button class="btn btn-primary col-6 mb-2" type="submit" disabled.bind="controller.errors.length > 0 ">Send</button>
+            <button class="btn btn-primary col-6 " type="reset button" value="Reset">Reset</button>
           </div>
         </form>
       </div>
-
     </div>
 
   </section>

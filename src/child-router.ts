@@ -22,13 +22,6 @@ export class ChildRouter {
         title: 'Github Users'
       },
       {
-        route: 'child-router',
-        name: 'child-router',
-        moduleId: PLATFORM.moduleName('./child-router'),
-        nav: true,
-        title: 'Child Router'
-      },
-      {
         route: 'task',
         name: 'task',
         moduleId: PLATFORM.moduleName('./task'),
