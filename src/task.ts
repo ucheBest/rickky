@@ -13,25 +13,12 @@ export class Task {
   public asset = {
     assetName: "",
     department: "",
-    emailOfDepartment: ""
+    emailOfDepartment: "",
+    purchaseDate: ""
   }
 
-  controller: ValidationController;
   dialogService: DialogService;
-  element: Element;
-
-  constructor (controllerFactory: ValidationControllerFactory, dialogService: DialogService, element: Element) {
-    this.controller = controllerFactory.createForCurrentScope();
-    this.controller.addRenderer(new BootstrapFormRenderer());
-    this.dialogService = dialogService;
-    this.element = element;
-  }
-
-  public async send(target) {
-    let validationResult = await this.controller.validate();
-    return this.controller.errors.length === 0;
-    // return true;
-  }
+  
 
   public reset(target){
     this.dialogService.open({ viewModel: ResetPrompt, model: 'Good or Bad?', lock: false }).whenClosed(response => {
@@ -39,10 +26,9 @@ export class Task {
         this.asset.assetName = "";
         this.asset.department = "";
         this.asset.emailOfDepartment = "";
+        this.asset.purchaseDate = "";
         target.setAttribute('disabled', 'true');
       }
     });
   }
-
 }
-

@@ -1,27 +1,49 @@
-import { bindable } from 'aurelia-framework';
+import { DialogService } from 'aurelia-dialog';
+import { bindable, autoinject } from 'aurelia-framework';
 import { ValidationRules,
   ValidationMessages,
   ValidationController,
   ValidationControllerFactory
 } from 'aurelia-validation';
+import { BootstrapFormRenderer } from 'bootstrap-form-renderer';
 
+@autoinject
 export class AssetDetail {
   @bindable
   public asset;
-  private departments = [
+  units = [
     "HQ",
     "Store 1",
     "Store 2",
     "Store 3",
     "Maintenance Station"
-  ]
+  ];
 
-  public inputChanged(value) {
+  controller: ValidationController;
+  dialogService: DialogService;
+
+  constructor (controllerFactory: ValidationControllerFactory, dialogService: DialogService, element: Element) {
+    this.controller = controllerFactory.createForCurrentScope();
+    this.controller.addRenderer(new BootstrapFormRenderer());
+    this.dialogService = dialogService;
+    //this.element = element;
+  }
+
+  public async inputChanged(value) {
     let resetButton = document.getElementById('reset');
+    let sendButton = document.getElementById('send');
     if (value !== '') {
       resetButton.removeAttribute('disabled');
     } else {
       resetButton.setAttribute('disabled', 'true');
+    }
+    
+    let result = await this.controller.validate();
+
+    if (result.valid ) {
+      sendButton.removeAttribute('disabled');
+    } else {
+      sendButton.setAttribute('disabled', 'true')
     }
   }
 
@@ -33,7 +55,7 @@ export class AssetDetail {
       .ensure("department")
         .required()
         .satisfies(value => {
-        return this.departments.indexOf(value) > -1
+        return this.units.indexOf(value) > -1
         })
         .withMessage("Please select a valid department!")
       .ensure("emailOfDepartment")
