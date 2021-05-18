@@ -16,6 +16,7 @@
     "aurelia-validation": "^2.0.0-rc2",
     "bootstrap": "^4.6.0",
     "jquery": "^3.6.0",
+    "moment": "^2.29.1",
     "popper.js": "^1.16.1",
     "whatwg-fetch": "^3.6.2"
   },

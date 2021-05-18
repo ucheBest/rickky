@@ -16,6 +16,15 @@ export class AssetDetail {
     "Maintenance Station"
   ]
 
+  public inputChanged(value) {
+    let resetButton = document.getElementById('reset');
+    if (value !== '') {
+      resetButton.removeAttribute('disabled');
+    } else {
+      resetButton.setAttribute('disabled', 'true');
+    }
+  }
+
   public bind() {
     ValidationRules
       .ensure("assetName")
@@ -30,6 +39,19 @@ export class AssetDetail {
       .ensure("emailOfDepartment")
         .required().email()
         .matches(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/)
+      .ensure("purchaseDate")
+        .required()
+        .satisfies(dateString => {
+          let oneYearAgo = new Date(new Date().setFullYear(new Date().getFullYear() - 1));
+          let hour = oneYearAgo.getHours();
+          let hourForUse = ("0" + hour).slice(-2);
+          let minute = oneYearAgo.getMinutes();
+          let minuteForUse = ("0" + minute).slice(-2);
+          let second = oneYearAgo.getSeconds();
+          let secondForUse = ("0" + second).slice(-2);
+          let selectedDate = new Date(`${dateString}T${hourForUse}:${minuteForUse}:${secondForUse}`);
+          return selectedDate > oneYearAgo;
+        })
       .on(this.asset);
   }
 }

@@ -10,8 +10,8 @@
         <form role="form" action="" method="post" submit.delegate="submit()">
           <asset-detail asset.bind="asset"></asset-detail>
           <div class="text-center mb-2">
-            <button class="btn btn-primary col-6 mb-2" type="submit" disabled.bind="controller.errors.length > 0 ">Send</button>
-            <button class="btn btn-primary col-6 " type="reset button" value="Reset">Reset</button>
+            <button class="btn btn-primary col-6 mb-2" type="submit" disabled.bind="send($event.target)">Send</button>
+            <button class="btn btn-primary col-6" id="reset" type="reset" disabled value="Reset" click.trigger="reset($event.target)">Reset</button>
           </div>
         </form>
       </div>
