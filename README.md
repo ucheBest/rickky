@@ -40,3 +40,4 @@ if you want to bring up an instance on your machine run:
 to stop the previously started instance:
 
 `yarn docker:stop` or `npm run docker:stop`
+"# rickky" 
