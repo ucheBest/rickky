@@ -23,6 +23,17 @@ export class Welcome {
       return confirm('Are you sure you want to leave?');
     }
   }
+
+  get disableSubmitButton() {
+    return this.isStringEmpty(this.firstName) || this.isStringEmpty(this.lastName)
+  }
+
+  private isStringEmpty (val:string){
+    if (val === undefined || val.length === 0){
+      return true
+    }
+    return false
+  }
 }
 
 export class UpperValueConverter {
